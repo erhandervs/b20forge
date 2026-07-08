@@ -235,12 +235,12 @@ export function AddLiquidityModal({
   const canSubmit = isConnected && token0 && token1 && amount0 && amount1 && !isLoading;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 md:p-6">
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
       
-      <div className="relative w-full max-w-lg bg-[#111B22] border border-[#1B2A32] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-[min(95vw,36rem)] max-h-[min(90dvh,48rem)] overflow-y-auto bg-[#111B22] border border-[#1B2A32] rounded-2xl shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#1B2A32]">
+        <div className="flex items-center justify-between px-4 sm:px-5 py-4 border-b border-[#1B2A32]">
           <div className="flex items-center gap-2">
             <h2 className="text-white font-bold text-lg">Add Liquidity</h2>
             {selectedPool && <Badge variant="blue">{selectedPool.dexName}</Badge>}
@@ -254,7 +254,7 @@ export function AddLiquidityModal({
         </div>
 
         {/* Body */}
-        <div className="p-5 space-y-4">
+        <div className="p-4 sm:p-5 space-y-4">
           {/* DEX Info */}
           {selectedPool && (
             <div className="bg-[#0A1520] border border-[#1B2A32] rounded-xl p-3">
@@ -523,7 +523,7 @@ function TokenSelector({
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute left-0 top-full mt-2 w-80 bg-[#111B22] border border-[#1B2A32] rounded-xl shadow-2xl z-50 overflow-hidden">
+          <div className="absolute left-0 top-full mt-2 w-[min(88vw,20rem)] max-w-[20rem] bg-[#111B22] border border-[#1B2A32] rounded-xl shadow-2xl z-50 overflow-hidden">
             <div className="max-h-[300px] overflow-y-auto">
               {tokens.map((t) => (
                 <button

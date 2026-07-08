@@ -16,7 +16,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {prefix && <div className="absolute left-3 flex items-center pointer-events-none text-[#6B8A99]">{prefix}</div>}
         <input ref={ref} className={clsx(
           'w-full bg-[#0A1520] border rounded-xl text-white placeholder-[#3D5A6A]',
-          'transition-all duration-150 h-11 px-4 text-sm outline-none',
+          'transition-all duration-150 h-11 px-4 text-sm sm:text-sm outline-none',
+          'min-h-[48px] text-base sm:text-sm',
           'focus:ring-2',
           error
             ? 'border-[#EF4444]/50 focus:border-[#EF4444] focus:ring-[#EF4444]/15'
@@ -49,7 +50,7 @@ export function NumberInput({ value, onChange, symbol, label, usdValue, balance,
       </div>
       <div className="flex items-center gap-3">
         <input type="number" value={value} onChange={e => onChange(e.target.value)} placeholder="0.0" max={max}
-          className="flex-1 bg-transparent text-white text-2xl font-semibold placeholder-[#1B2A32] outline-none min-w-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+          className="flex-1 w-full bg-transparent text-white text-xl sm:text-2xl font-semibold placeholder-[#1B2A32] outline-none min-w-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
         {symbol && (
           <div className="flex items-center gap-1.5 bg-[#162535] border border-[#253C48] rounded-lg px-3 py-2 shrink-0">
             <span className="text-white text-sm font-semibold">{symbol}</span>

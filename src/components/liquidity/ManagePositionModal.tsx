@@ -112,12 +112,12 @@ export function ManagePositionModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 md:p-6">
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
       
-      <div className="relative w-full max-w-lg bg-[#111B22] border border-[#1B2A32] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-[min(95vw,36rem)] max-h-[min(90dvh,48rem)] overflow-y-auto bg-[#111B22] border border-[#1B2A32] rounded-2xl shadow-2xl">
         {/* Header */}
-        <div className="px-5 py-4 border-b border-[#1B2A32]">
+        <div className="px-4 sm:px-5 py-4 border-b border-[#1B2A32]">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <h2 className="text-white font-bold text-lg">Manage Position</h2>
@@ -142,7 +142,7 @@ export function ManagePositionModal({
         </div>
 
         {/* Action Tabs */}
-        <div className="px-5 py-3 border-b border-[#1B2A32] flex gap-2">
+        <div className="px-4 sm:px-5 py-3 border-b border-[#1B2A32] flex flex-wrap gap-2">
           {[
             { id: 'increase' as ActionType, label: 'Increase', icon: Plus },
             { id: 'decrease' as ActionType, label: 'Decrease', icon: Minus },
@@ -166,7 +166,7 @@ export function ManagePositionModal({
         </div>
 
         {/* Body */}
-        <div className="p-5 space-y-4">
+        <div className="p-4 sm:p-5 space-y-4">
           {/* Position Details */}
           <div className="bg-[#0A1520] border border-[#1B2A32] rounded-xl p-4 space-y-2">
             <div className="flex items-center justify-between text-xs">
@@ -315,7 +315,7 @@ export function ManagePositionModal({
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-4 border-t border-[#1B2A32]">
+        <div className="px-4 sm:px-5 py-4 border-t border-[#1B2A32]">
           {txSuccess ? (
             <div className="flex items-center justify-center gap-2 py-3 bg-[#10B981]/15 border border-[#10B981]/30 rounded-xl">
               <CheckCircle className="w-5 h-5 text-[#10B981]" />

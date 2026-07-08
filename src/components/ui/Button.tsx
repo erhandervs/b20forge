@@ -33,7 +33,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className={clsx(
         'inline-flex items-center justify-center transition-all duration-150 cursor-pointer select-none',
         'disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none',
-        'active:scale-[0.98]',
+        'active:scale-[0.98] min-h-[44px] sm:min-h-[40px]',
+        fullWidth ? 'w-full sm:w-auto' : 'sm:w-auto',
         variantClasses[variant], sizeClasses[size],
         fullWidth && 'w-full', className
       )} {...props}>

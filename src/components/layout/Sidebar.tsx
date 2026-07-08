@@ -28,16 +28,14 @@ export function Sidebar({ open=true, onClose }: SidebarProps) {
         'shrink-0 h-screen sticky top-0 flex flex-col z-50',
         'bg-[#071114] border-r border-[#1B2A32]',
         'fixed lg:static transition-transform duration-300',
-        'w-[280px] sm:w-[280px]',
+        'w-[min(82vw,280px)] max-w-[280px] sm:w-[280px]',
         open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       )}>
-        {/* Logo - Reference size match */}
+        {/* Logo - Using variant_c.svg */}
         <div className="px-4 py-4 border-b border-[#1B2A32] flex items-center justify-between">
           <Link href="/swap" className="flex items-center gap-3" onClick={onClose}>
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#14B8A6] to-[#0d9488] flex items-center justify-center shrink-0 shadow-lg shadow-[#14B8A6]/25">
-              <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
+              <img src="/variant_c.svg" alt="B20Forge" className="w-12 h-12 object-contain" />
             </div>
             <div className="min-w-0">
               <h1 className="text-white font-bold text-xl leading-tight tracking-tight">B20Forge</h1>

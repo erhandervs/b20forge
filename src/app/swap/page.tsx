@@ -122,7 +122,7 @@ function TokenSelect({
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[999]" onClick={closeTokenSelect} />
           
           {/* Modal */}
-          <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] w-[90vw] max-w-md bg-[#1a1f2e] border border-[#2a3348] rounded-2xl shadow-2xl overflow-hidden">
+          <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] w-[min(92vw,28rem)] max-w-[28rem] max-h-[min(84dvh,36rem)] overflow-y-auto bg-[#1a1f2e] border border-[#2a3348] rounded-2xl shadow-2xl">
             {/* Header */}
             <div className="px-4 py-3 border-b border-[#2a3348]">
               <div className="flex items-center justify-between mb-3">

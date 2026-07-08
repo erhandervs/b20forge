@@ -7,9 +7,10 @@
 import type { Address, PublicClient, WalletClient } from 'viem';
 import { encodeAbiParameters, encodePacked, keccak256 } from 'viem';
 import type { B20TokenConfig } from '@/lib/b20-config';
-import { B20_FACTORY_ADDRESS, B20_FACTORY_ABI } from '@/lib/b20-config';
+import { B20_FACTORY_ADDRESS, B20_FACTORY_ABI, BERYL_STATUS } from '@/lib/b20-config';
 import { verifyActivationRegistry } from '@/lib/activation-registry';
 import { uploadTokenMetadata } from '@/lib/ipfs-metadata';
+import { base } from 'wagmi/chains';
 
 export interface DeploymentOptions {
   config: B20TokenConfig;
@@ -45,6 +46,16 @@ export class B20FactoryService {
     error?: string;
   }> {
     try {
+      const chainId = await this.publicClient.getChainId();
+      const isMainnetLaunchpadActive = chainId === base.id && BERYL_STATUS.MAINNET_ACTIVE;
+
+      if (isMainnetLaunchpadActive) {
+        return {
+          isActivated: true,
+          activationFee: BigInt(0),
+        };
+      }
+
       const result = await verifyActivationRegistry(this.publicClient);
       
       if (!result.registryExists) {
