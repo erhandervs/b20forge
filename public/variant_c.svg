@@ -1,0 +1,10 @@
+<svg width="260" height="260" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+  <rect x="18" y="18" width="224" height="224" rx="58" fill="#0052FF"/>
+  <!-- full orbit ring -->
+  <circle cx="130" cy="140" r="64" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="12"/>
+  <!-- ascending trail of dots breaking free upward -->
+  <circle cx="130" cy="140" r="11" fill="#ffffff"/>
+  <circle cx="146" cy="104" r="9" fill="#ffffff"/>
+  <circle cx="160" cy="70" r="7" fill="#ffffff"/>
+  <circle cx="172" cy="42" r="5" fill="#ffffff"/>
+</svg>

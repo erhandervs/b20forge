@@ -60,7 +60,7 @@ B20 is Base's native token standard introduced in the Beryl upgrade. Unlike trad
 - **Styling**: Tailwind CSS
 - **Charts**: Recharts
 - **Icons**: Lucide React
-- **Blockchain**: Base Network (Sepolia Testnet)
+- **Blockchain**: Base Network (Mainnet ready)
 
 ## 📱 Responsive Design
 
@@ -74,8 +74,8 @@ Fully optimized for mobile, tablet, and desktop devices with:
 ## 🔗 Base Network Integration
 
 ### Beryl Upgrade Info
-- **Testnet**: Already activated on Sepolia
-- **Mainnet**: Scheduled for June 25, 2026
+- **Testnet**: Available on Sepolia
+- **Mainnet**: Enabled for launchpad deployment
 - **Chain ID**: 8453 (Base Mainnet)
 - **Withdrawal Time**: Reduced from 7 to 5 days
 
@@ -87,7 +87,7 @@ B20 tokens use deterministic addresses derived from:
 
 ## 🚧 Current Status
 
-**⚠️ Important**: B20 mainnet activation is currently delayed. The platform is ready for testnet deployment on Base Sepolia.
+**✅ Important**: The platform is now configured for Base Mainnet launchpad deployment.
 
 ### Working Features
 ✅ Full UI/UX implementation

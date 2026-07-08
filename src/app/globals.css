@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* ── B20Forge Design System ──────────────────────────────────────────────
+   Deep dark background, teal-green accents, clean SaaS aesthetic
+   Palette:
+     bg-base:     #071114   (deepest background)
+     bg-card:     #111B22   (card surface)
+     bg-input:    #0A1520   (input / nested elements)
+     bg-hover:    #0f1e2a   (hover states)
+     bg-subtle:   #162535   (subtle elevated)
+     border:      #1B2A32   (default border)
+     border-hi:   #253C48   (highlighted border)
+     accent:      #14B8A6   (teal primary)
+     accent-dark: #0d9488   (teal hover)
+     accent-em:   #2dd4bf   (teal light / text on dark)
+     green:       #10B981   (positive / success)
+     green-hi:    #22C55E   (bright green highlight)
+     red:         #EF4444
+     yellow:      #F59E0B
+     text-primary: #E2EAF0
+     text-secondary: #6B8A99
+     text-muted:  #3D5A6A
+──────────────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #071114;
+  color: #E2EAF0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Mobile viewport fix ── */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  /* Prevent zoom on input focus on iOS */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #071114; }
+::-webkit-scrollbar-thumb { background: #1B2A32; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #253C48; }
+
+/* ── Animations ── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in-up 0.3s ease forwards; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* ── Input range ── */
+input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none; 
+  height: 3px;
+  background: #1B2A32; border-radius: 4px; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  border-radius: 50%; background: #14B8A6; cursor: pointer;
+}
+
+/* ── Mobile sidebar overlay ── */
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 40; backdrop-filter: blur(3px);
+}
+
+/* ── Modal open state ── */
+body.modal-open header {
+  display: none;
+}
+
+body.modal-open aside {
+  display: none;
+}
