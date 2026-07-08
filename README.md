@@ -4,13 +4,20 @@ A comprehensive platform for deploying, managing, and trading B20 native tokens 
 
 ## 🚀 What is B20?
 
+**Status**: ✅ **MAINNET LIVE** (Activated July 8, 2026 at 18:00 UTC)
+
 B20 is Base's native token standard introduced in the Beryl upgrade. Unlike traditional ERC-20 tokens deployed as smart contracts, B20 tokens are Rust precompiles embedded directly into the Base chain, offering:
 
-- **Lower gas costs** - Native execution is more efficient than EVM contracts
+- **Lower gas costs** - Native execution is ~30-50% cheaper than EVM contracts
 - **Higher throughput** - Better performance for high-volume applications
 - **Full ERC-20 compatibility** - Works seamlessly with existing wallets and DApps
 - **Built-in compliance** - Role-based access, policy lists, supply caps, and pause functionality
 - **Enhanced security** - Audited code running at the protocol layer
+
+### Official B20 Addresses (Base Mainnet)
+- **Factory**: `0xB20f000000000000000000000000000000000000`
+- **Activation Registry**: `0x8453000000000000000000000000000000000001`
+- **Policy Registry**: `0x8453000000000000000000000000000000000002`
 
 ## ✨ Features
 

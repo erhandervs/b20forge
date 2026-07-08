@@ -19,18 +19,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         
         {/* Favicon - multiple sizes for all devices */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/b20forgewhite.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/b20forgewhite.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/b20forgewhite.png" />
-        <link rel="shortcut icon" href="/b20forgewhite.png" />
+        <link rel="icon" type="image/svg+xml" href="/variant_c.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/variant_c.svg" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/variant_c.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/variant_c.svg" />
+        <link rel="shortcut icon" href="/variant_c.svg" />
       </head>
       <body className="bg-[#071114] text-[#E2EAF0] antialiased overflow-x-hidden">
         <Web3Provider>
-          <div className="flex min-h-screen overflow-x-hidden">
+          <div className="flex min-h-screen w-full max-w-full overflow-x-hidden">
             <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-            <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+            <div className="flex-1 flex flex-col min-w-0 min-h-screen w-full max-w-full overflow-x-hidden">
               <Header onMenuClick={() => setSidebarOpen(o => !o)} />
-              <main className="flex-1 overflow-x-hidden">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 {children}
               </main>
             </div>

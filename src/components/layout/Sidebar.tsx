@@ -31,18 +31,21 @@ export function Sidebar({ open=true, onClose }: SidebarProps) {
         'w-[280px] sm:w-[280px]',
         open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       )}>
-        {/* Logo */}
-        <div className="px-4 py-5 border-b border-[#1B2A32] flex items-center justify-between">
-          <Link href="/swap" className="flex items-center justify-center w-full" onClick={onClose}>
-            <img 
-              src="/b20forgewhite.png" 
-              alt="B20Forge" 
-              className="h-14 w-auto object-contain hover:opacity-90 transition-opacity"
-              style={{ maxWidth: '180px' }}
-            />
+        {/* Logo - Reference size match */}
+        <div className="px-4 py-4 border-b border-[#1B2A32] flex items-center justify-between">
+          <Link href="/swap" className="flex items-center gap-3" onClick={onClose}>
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#14B8A6] to-[#0d9488] flex items-center justify-center shrink-0 shadow-lg shadow-[#14B8A6]/25">
+              <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <h1 className="text-white font-bold text-xl leading-tight tracking-tight">B20Forge</h1>
+              <p className="text-[#6B8A99] text-xs leading-tight">Base Network B20</p>
+            </div>
           </Link>
           {onClose && (
-            <button onClick={onClose} className="lg:hidden text-[#3D5A6A] hover:text-white transition-colors ml-2 absolute right-4">
+            <button onClick={onClose} className="lg:hidden text-[#3D5A6A] hover:text-white transition-colors ml-2">
               <X className="w-5 h-5" />
             </button>
           )}

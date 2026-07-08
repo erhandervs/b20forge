@@ -113,14 +113,11 @@ body.modal-open aside {
 
 /* ── Mobile & Touch Optimizations ── */
 @media (max-width: 640px) {
-  /* Prevent all horizontal overflow */
-  * {
-    max-width: 100vw;
-  }
-  
-  body, html {
-    overflow-x: hidden !important;
+  /* Prevent all horizontal overflow without forcing every child to shrink aggressively */
+  html, body, main {
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
     position: relative;
   }
   

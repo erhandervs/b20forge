@@ -561,12 +561,12 @@ export default function SwapPage() {
   }
 
   return (
-    <div className="p-3 sm:p-4 md:p-6 max-w-7xl mx-auto animate-fade-in">
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+    <div className="w-full max-w-7xl mx-auto px-2 sm:px-3 md:px-5 lg:px-6 py-3 sm:py-4 md:py-6 animate-fade-in">
+      <div className="grid grid-cols-1 gap-3 sm:gap-4 md:gap-6 xl:grid-cols-5">
 
         {/* Swap card - 2 cols */}
-        <div className="xl:col-span-2 order-2 xl:order-1">
-          <div className="bg-[#111B22] border border-[#1B2A32] rounded-2xl p-3 sm:p-4 md:p-5">
+        <div className="xl:col-span-2 order-2 xl:order-1 min-w-0">
+          <div className="w-full max-w-full overflow-hidden bg-[#111B22] border border-[#1B2A32] rounded-2xl p-3 sm:p-4 md:p-5">
 
             {/* Header */}
             <div className="flex items-center justify-between mb-5">
@@ -632,7 +632,7 @@ export default function SwapPage() {
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-3 mb-2">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3 mb-2">
                 <input
                   type="number"
                   value={fromAmount}
@@ -712,7 +712,7 @@ export default function SwapPage() {
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
                 <div className="flex-1 text-2xl font-bold text-white min-w-0 truncate">
                   {toAmount || <span className="text-[#1B2A32]">0.0</span>}
                 </div>
@@ -821,7 +821,7 @@ export default function SwapPage() {
         </div>
 
         {/* Chart panel - 3 cols */}
-        <div className="xl:col-span-3 order-1 xl:order-2 bg-[#111B22] border border-[#1B2A32] rounded-2xl p-4 sm:p-5 flex flex-col">
+        <div className="xl:col-span-3 order-1 xl:order-2 min-w-0 w-full overflow-hidden bg-[#111B22] border border-[#1B2A32] rounded-2xl p-3 sm:p-4 md:p-5 flex flex-col">
 
           {/* Chart header */}
           <div className="flex items-start justify-between mb-4 flex-wrap gap-3">
@@ -888,7 +888,7 @@ export default function SwapPage() {
           </div>
 
           {/* Chart */}
-          <div className="flex-1 min-h-[180px]">
+          <div className="w-full min-w-0 flex-1 min-h-[180px]">
             <FullChart data={chartData} color="#14B8A6" height={220} showAxes showTooltip />
           </div>
 
