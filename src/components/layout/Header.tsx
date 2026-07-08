@@ -5,7 +5,6 @@ import { Menu } from 'lucide-react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const pageTitles: Record<string, { title:string; subtitle:string }> = {
-  '/':          { title:'Dashboard',  subtitle:'Base Network Overview'                      },
   '/swap':      { title:'Swap',       subtitle:'Swap tokens at the best rates'              },
   '/launchpad': { title:'Launchpad',  subtitle:'Deploy tokens with the B20 native standard' },
   '/explore':   { title:'Explore',    subtitle:'Discover tokens on Base'                    },

@@ -32,8 +32,8 @@ export function Sidebar({ open=true, onClose }: SidebarProps) {
       )}>
         {/* Logo */}
         <div className="px-5 py-5 border-b border-[#1B2A32] flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group" onClick={onClose}>
-            <img src="/variant_c.svg" alt="B20Forge" className="w-8 h-8 rounded-lg shrink-0 object-cover" />
+          <Link href="/swap" className="flex items-center gap-3 group" onClick={onClose}>
+            <img src="/b20forge_logo_centered.png" alt="B20Forge" className="w-8 h-8 rounded-lg shrink-0 object-cover" />
             <div className="sr-only">
               B20Forge — Base Network B20
             </div>
