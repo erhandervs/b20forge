@@ -182,39 +182,41 @@ export default function ExplorePage() {
   }
 
   return (
-    <div className="p-4 sm:p-6 animate-fade-in space-y-4 sm:space-y-5">
+    <div className="p-2 sm:p-4 md:p-6 animate-fade-in space-y-3 sm:space-y-4 md:space-y-5">
       {/* Controls */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex flex-col gap-2 sm:gap-3">
+        <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3D5A6A]" />
           <input value={query} onChange={e => setQuery(e.target.value)}
-            placeholder="Search token name or symbol..."
-            className="w-full bg-[#111B22] border border-[#1B2A32] rounded-xl pl-9 pr-4 h-10 text-sm text-white placeholder-[#3D5A6A] focus:border-[#14B8A6]/50 focus:ring-1 focus:ring-[#14B8A6]/10 outline-none hover:border-[#253C48] transition-all" />
+            placeholder="Search token..."
+            className="w-full bg-[#111B22] border border-[#1B2A32] rounded-xl pl-9 pr-4 h-9 sm:h-10 text-xs sm:text-sm text-white placeholder-[#3D5A6A] focus:border-[#14B8A6]/50 focus:ring-1 focus:ring-[#14B8A6]/10 outline-none hover:border-[#253C48] transition-all" />
         </div>
-        <div className="flex bg-[#0A1520] rounded-xl p-1 border border-[#1B2A32] overflow-x-auto">
-          {TABS.map(t => (
-            <button key={t.id} onClick={() => setTab(t.id)}
-              className={clsx('px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap',
-                tab === t.id ? 'bg-[#111B22] text-white border border-[#1B2A32] shadow-sm' : 'text-[#6B8A99] hover:text-white'
-              )}>{t.label}</button>
-          ))}
+        <div className="flex gap-2 items-center overflow-x-auto">
+          <div className="flex bg-[#0A1520] rounded-xl p-1 border border-[#1B2A32] overflow-x-auto shrink-0">
+            {TABS.map(t => (
+              <button key={t.id} onClick={() => setTab(t.id)}
+                className={clsx('px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold transition-all whitespace-nowrap',
+                  tab === t.id ? 'bg-[#111B22] text-white border border-[#1B2A32] shadow-sm' : 'text-[#6B8A99] hover:text-white'
+                )}>{t.label}</button>
+            ))}
+          </div>
+          <button className="flex items-center gap-1 px-2 sm:px-3 h-8 sm:h-9 bg-[#111B22] border border-[#1B2A32] rounded-xl text-[#6B8A99] hover:text-white hover:border-[#253C48] text-xs transition-all shrink-0">
+            <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> <span className="hidden sm:inline">Filter</span>
+          </button>
         </div>
-        <button className="flex items-center gap-2 px-3 h-10 bg-[#111B22] border border-[#1B2A32] rounded-xl text-[#6B8A99] hover:text-white hover:border-[#253C48] text-sm transition-all shrink-0">
-          <Filter className="w-4 h-4" /> Filter
-        </button>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
         {[
           { label:'Total Tokens',     value: stats.totalTokens },
           { label:'24H Trade Volume', value: stats.volume24h },
           { label:'B20 Tokens',       value: stats.b20Tokens },
           { label:'New (7D)',         value: stats.new7d },
         ].map(s => (
-          <div key={s.label} className="bg-[#111B22] border border-[#1B2A32] rounded-xl px-4 py-3">
-            <p className="text-[#3D5A6A] text-xs mb-0.5">{s.label}</p>
-            <p className="text-white text-lg font-bold">{s.value}</p>
+          <div key={s.label} className="bg-[#111B22] border border-[#1B2A32] rounded-xl px-3 sm:px-4 py-2 sm:py-3">
+            <p className="text-[#3D5A6A] text-[10px] sm:text-xs mb-0.5 truncate">{s.label}</p>
+            <p className="text-white text-sm sm:text-lg font-bold truncate">{s.value}</p>
           </div>
         ))}
       </div>
@@ -225,16 +227,16 @@ export default function ExplorePage() {
           <table className="w-full">
             <thead><tr className="border-b border-[#1B2A32]">
               {['#','Token','Price','24H','Volume','Market Cap','Liquidity','Chart',''].map(h => (
-                <th key={h} className="px-4 sm:px-5 py-3.5 text-left text-[#3D5A6A] text-xs font-medium whitespace-nowrap">{h}</th>
+                <th key={h} className="px-2 sm:px-4 md:px-5 py-2.5 sm:py-3.5 text-left text-[#3D5A6A] text-[10px] sm:text-xs font-medium whitespace-nowrap">{h}</th>
               ))}
             </tr></thead>
             <tbody className="divide-y divide-[#1B2A32]">
               {currentTokens.map(t => (
                 <tr key={t.symbol} className="hover:bg-[#0f1e2a] transition-colors group cursor-pointer">
-                  <td className="px-4 sm:px-5 py-3.5 text-[#3D5A6A] text-sm w-10">{t.rank}</td>
-                  <td className="px-4 sm:px-5 py-3.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-[#162535] border border-[#253C48] overflow-hidden shrink-0">
+                  <td className="px-2 sm:px-4 md:px-5 py-2.5 sm:py-3.5 text-[#3D5A6A] text-xs sm:text-sm w-6 sm:w-10">{t.rank}</td>
+                  <td className="px-2 sm:px-4 md:px-5 py-2.5 sm:py-3.5">
+                    <div className="flex items-center gap-1.5 sm:gap-2.5">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-xl bg-[#162535] border border-[#253C48] overflow-hidden shrink-0">
                         <img
                           src={t.logo}
                           alt={t.symbol}
@@ -246,8 +248,8 @@ export default function ExplorePage() {
                         />
                       </div>
                       <div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-white text-sm font-bold">{t.symbol}</span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-white text-xs sm:text-sm font-bold">{t.symbol}</span>
                           {t.verified && <span title="Verified" className="text-[#14B8A6] text-xs">✓</span>}
                           {t.b20 && <Badge variant="blue">B20</Badge>}
                         </div>
