@@ -561,12 +561,12 @@ export default function SwapPage() {
   }
 
   return (
-    <div className="p-4 sm:p-6 max-w-7xl mx-auto animate-fade-in">
-      <div className="grid grid-cols-1 xl:grid-cols-5 gap-4 sm:gap-6">
+    <div className="p-3 sm:p-4 md:p-6 max-w-7xl mx-auto animate-fade-in">
+      <div className="grid grid-cols-1 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
 
         {/* Swap card - 2 cols */}
         <div className="xl:col-span-2 order-2 xl:order-1">
-          <div className="bg-[#111B22] border border-[#1B2A32] rounded-2xl p-4 sm:p-5">
+          <div className="bg-[#111B22] border border-[#1B2A32] rounded-2xl p-3 sm:p-4 md:p-5">
 
             {/* Header */}
             <div className="flex items-center justify-between mb-5">

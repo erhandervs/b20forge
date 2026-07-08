@@ -25,9 +25,10 @@ export function Sidebar({ open=true, onClose }: SidebarProps) {
         <div className="sidebar-overlay lg:hidden" onClick={onClose} />
       )}
       <aside className={clsx(
-        'w-[220px] shrink-0 h-screen sticky top-0 flex flex-col z-50',
+        'shrink-0 h-screen sticky top-0 flex flex-col z-50',
         'bg-[#071114] border-r border-[#1B2A32]',
         'fixed lg:static transition-transform duration-300',
+        'w-[200px] md:w-[220px]',
         open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       )}>
         {/* Logo */}
