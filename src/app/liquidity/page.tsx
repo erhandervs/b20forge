@@ -26,10 +26,10 @@ export default function LiquidityPage() {
         <div className="flex items-center justify-center mb-4">
           <div className="w-12 h-12 rounded-full bg-[#071826] border border-[#15333d] flex items-center justify-center text-[#2dd4bf] text-xl">💧</div>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">caming soon</h1>
-        <p className="text-[#9fb1bd] text-sm sm:text-base mb-6">Likidite özellikleri üzerinde çalışıyoruz — yakında burada olacak.</p>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">Coming soon</h1>
+        <p className="text-[#9fb1bd] text-sm sm:text-base mb-6">We're building liquidity features — they'll be here soon.</p>
         <div className="mt-4">
-          <a href="#" className="inline-block px-4 py-2 bg-[#123343] hover:bg-[#164e56] text-[#cfeef1] rounded-md text-sm">Bildirimler için takip et</a>
+          <a href="#" className="inline-block px-4 py-2 bg-[#123343] hover:bg-[#164e56] text-[#cfeef1] rounded-md text-sm">Subscribe for updates</a>
         </div>
       </div>
     </div>
