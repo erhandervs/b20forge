@@ -92,3 +92,85 @@ body.modal-open header {
 body.modal-open aside {
   display: none;
 }
+
+/* ── Mobile & Touch Optimizations ── */
+@media (max-width: 640px) {
+  /* Better touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent text size adjust */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Modal optimization */
+  .modal-content {
+    max-height: 90vh !important;
+    max-height: 90dvh !important; /* Use dynamic viewport */
+  }
+  
+  /* Card spacing */
+  .card {
+    padding: 1rem !important;
+  }
+  
+  /* Table responsive */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ── Tablet Optimizations ── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* ── Safe Area (iOS notch) ── */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  header {
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+  
+  .sidebar-overlay {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Better scrolling on mobile ── */
+@media (max-width: 1024px) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ── Prevent zoom on double tap ── */
+button, a {
+  touch-action: manipulation;
+}
+
+/* ── Focus visible for accessibility ── */
+:focus-visible {
+  outline: 2px solid #14B8A6;
+  outline-offset: 2px;
+}
+
+/* ── Loading spinner responsive ── */
+@media (max-width: 640px) {
+  .spinner {
+    width: 24px;
+    height: 24px;
+  }
+}

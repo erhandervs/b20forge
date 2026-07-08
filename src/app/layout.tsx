@@ -13,7 +13,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <title>B20Forge — Base Network B20 Launchpad</title>
         <meta name="description" content="Deploy, swap and manage liquidity for B20 native tokens on Base." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+        <meta name="theme-color" content="#071114" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="icon" href="/variant_c.svg" />
       </head>
       <body className="bg-[#071114] text-[#E2EAF0] antialiased">

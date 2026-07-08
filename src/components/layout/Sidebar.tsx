@@ -28,17 +28,22 @@ export function Sidebar({ open=true, onClose }: SidebarProps) {
         'shrink-0 h-screen sticky top-0 flex flex-col z-50',
         'bg-[#071114] border-r border-[#1B2A32]',
         'fixed lg:static transition-transform duration-300',
-        'w-[200px] md:w-[220px]',
+        'w-[240px] sm:w-[260px]',
         open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       )}>
         {/* Logo */}
-        <div className="px-3 py-3 border-b border-[#1B2A32] flex items-center justify-center">
+        <div className="px-4 py-4 border-b border-[#1B2A32] flex items-center justify-between">
           <Link href="/swap" className="flex items-center justify-center" onClick={onClose}>
-            <img src="/b20forgewhite.png" alt="B20Forge" className="w-12 h-12 rounded-lg shrink-0 object-cover" />
+            <img 
+              src="/b20forgewhite.png" 
+              alt="B20Forge" 
+              className="h-8 w-auto object-contain hover:opacity-90 transition-opacity"
+              style={{ maxWidth: '140px' }}
+            />
           </Link>
           {onClose && (
-            <button onClick={onClose} className="lg:hidden text-[#3D5A6A] hover:text-white transition-colors">
-              <X className="w-4 h-4" />
+            <button onClick={onClose} className="lg:hidden text-[#3D5A6A] hover:text-white transition-colors ml-2">
+              <X className="w-5 h-5" />
             </button>
           )}
         </div>
