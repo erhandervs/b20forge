@@ -44,6 +44,24 @@ body {
   input, select, textarea {
     font-size: 16px !important;
   }
+  
+  /* Prevent horizontal overflow */
+  main {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Fix container overflow */
+  .container, [class*="max-w"] {
+    max-width: 100% !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  /* Fix grid overflow */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* ── Scrollbar ── */
@@ -95,6 +113,17 @@ body.modal-open aside {
 
 /* ── Mobile & Touch Optimizations ── */
 @media (max-width: 640px) {
+  /* Prevent all horizontal overflow */
+  * {
+    max-width: 100vw;
+  }
+  
+  body, html {
+    overflow-x: hidden !important;
+    width: 100%;
+    position: relative;
+  }
+  
   /* Better touch targets */
   button, a, [role="button"] {
     min-height: 44px;
@@ -110,11 +139,13 @@ body.modal-open aside {
   .modal-content {
     max-height: 90vh !important;
     max-height: 90dvh !important; /* Use dynamic viewport */
+    max-width: 95vw !important;
+    margin: auto;
   }
   
   /* Card spacing */
   .card {
-    padding: 1rem !important;
+    padding: 0.75rem !important;
   }
   
   /* Table responsive */
@@ -122,6 +153,19 @@ body.modal-open aside {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+    max-width: 100%;
+  }
+  
+  /* Container constraints */
+  [class*="container"], [class*="max-w"] {
+    max-width: 100% !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  /* Fix grid columns on mobile */
+  .grid {
+    grid-template-columns: 1fr !important;
   }
 }
 

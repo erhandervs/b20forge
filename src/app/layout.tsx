@@ -17,15 +17,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#071114" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="icon" href="/variant_c.svg" />
+        
+        {/* Favicon - multiple sizes for all devices */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/b20forgewhite.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/b20forgewhite.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/b20forgewhite.png" />
+        <link rel="shortcut icon" href="/b20forgewhite.png" />
       </head>
-      <body className="bg-[#071114] text-[#E2EAF0] antialiased">
+      <body className="bg-[#071114] text-[#E2EAF0] antialiased overflow-x-hidden">
         <Web3Provider>
-          <div className="flex min-h-screen">
+          <div className="flex min-h-screen overflow-x-hidden">
             <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-            <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+            <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
               <Header onMenuClick={() => setSidebarOpen(o => !o)} />
-              <main className="flex-1">
+              <main className="flex-1 overflow-x-hidden">
                 {children}
               </main>
             </div>
