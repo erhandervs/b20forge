@@ -32,9 +32,9 @@ export function Sidebar({ open=true, onClose }: SidebarProps) {
         open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       )}>
         {/* Logo */}
-        <div className="px-5 py-5 border-b border-[#1B2A32] flex items-center justify-between">
+        <div className="px-3 py-4 border-b border-[#1B2A32] flex items-center justify-between">
           <Link href="/swap" className="flex items-center gap-3 group" onClick={onClose}>
-            <img src="/b20forge_logo_centered.png" alt="B20Forge" className="w-8 h-8 rounded-lg shrink-0 object-cover" />
+            <img src="/b20forge_logo_centered.png" alt="B20Forge" className="w-20 h-20 rounded-lg shrink-0 object-cover" />
             <div className="sr-only">
               B20Forge — Base Network B20
             </div>
