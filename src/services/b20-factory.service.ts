@@ -134,13 +134,16 @@ export class B20FactoryService {
       let metadataUri = config.contractURI || '';
       if (logoFile) {
         onProgress?.('uploading-metadata');
-        const uploadResult = await this.uploadMetadata(config, logoFile);
-        
-        if (!uploadResult.success) {
-          throw new Error(uploadResult.error || 'Metadata upload failed');
+        try {
+          const uploadResult = await this.uploadMetadata(config, logoFile);
+          if (uploadResult.success) {
+            metadataUri = uploadResult.contractUri || metadataUri;
+          } else {
+            console.warn('Metadata upload failed, continuing without IPFS metadata:', uploadResult.error);
+          }
+        } catch (error) {
+          console.warn('Metadata upload threw an error, continuing deployment:', error);
         }
-        
-        metadataUri = uploadResult.contractUri || '';
       }
 
       // Step 3: Prepare deployment
@@ -152,7 +155,6 @@ export class B20FactoryService {
 
       // Generate salt for CREATE2
       const salt = this.generateSalt(userAddress, config.symbol);
-
 
       const params = encodeAbiParameters(
         [
@@ -166,7 +168,7 @@ export class B20FactoryService {
 
       const initCalls: `0x${string}`[] = [];
 
-      const { request } = await this.publicClient.simulateContract({
+      const simulateResult = await this.publicClient.simulateContract({
         address: B20_FACTORY_ADDRESS,
         abi: B20_FACTORY_ABI,
         functionName: 'createB20',
@@ -174,8 +176,12 @@ export class B20FactoryService {
         account: userAddress,
       } as Parameters<PublicClient['simulateContract']>[0]);
 
-      // Execute transaction
-      const txHash = await this.walletClient.writeContract(request);
+      const txHash = await this.walletClient.sendTransaction({
+        to: B20_FACTORY_ADDRESS,
+        data: simulateResult.request.data,
+        value: simulateResult.request.value ?? 0n,
+        account: userAddress,
+      } as Parameters<WalletClient['sendTransaction']>[0]);
 
       onProgress?.('waiting-confirmation', { txHash });
 
