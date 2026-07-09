@@ -168,15 +168,46 @@ export class B20FactoryService {
 
       const initCalls: `0x${string}`[] = [];
 
-      const txHash = await this.walletClient.writeContract({
-        address: B20_FACTORY_ADDRESS,
-        abi: B20_FACTORY_ABI,
-        functionName: 'createB20',
-        args: [config.variant, salt, params, initCalls],
-        account: userAddress,
-      } as Parameters<WalletClient['writeContract']>[0]);
+      let txHash: `0x${string}` | undefined;
 
-      onProgress?.('waiting-confirmation', { txHash });
+      try {
+        txHash = await this.walletClient.writeContract({
+          address: B20_FACTORY_ADDRESS,
+          abi: B20_FACTORY_ABI,
+          functionName: 'createB20',
+          args: [config.variant, salt, params, initCalls],
+          account: userAddress,
+        } as Parameters<WalletClient['writeContract']>[0]);
+
+        onProgress?.('waiting-confirmation', { txHash });
+      } catch (err) {
+        console.warn('writeContract failed, attempting fallback via simulate + sendTransaction', err);
+
+        try {
+          const simulateResult = await this.publicClient.simulateContract({
+            address: B20_FACTORY_ADDRESS,
+            abi: B20_FACTORY_ABI,
+            functionName: 'createB20',
+            args: [config.variant, salt, params, initCalls],
+            account: userAddress,
+          } as Parameters<PublicClient['simulateContract']>[0]);
+
+          if (!simulateResult?.request) throw new Error('simulateContract did not return a request');
+
+          // prefer sendTransaction when writeContract is not available/failed
+          txHash = await this.walletClient.sendTransaction({
+            to: simulateResult.request.to ?? B20_FACTORY_ADDRESS,
+            data: simulateResult.request.data,
+            value: (simulateResult.request as any).value ?? 0n,
+            account: (simulateResult.request as any).account ?? userAddress,
+          } as Parameters<WalletClient['sendTransaction']>[0]);
+
+          onProgress?.('waiting-confirmation', { txHash });
+        } catch (innerErr) {
+          console.error('Fallback sendTransaction failed:', innerErr);
+          throw new Error((innerErr as Error).message || 'Transaction submission failed');
+        }
+      }
 
       // Wait for receipt
       const receipt = await this.publicClient.waitForTransactionReceipt({
