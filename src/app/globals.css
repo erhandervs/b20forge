@@ -24,11 +24,6 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-html, body, #__next {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
 
 body {
   background: #071114;
@@ -36,47 +31,10 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-}
-
-img, svg, canvas {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-main, section, article, aside, header, footer, div {
-  max-width: 100%;
-}
-
-/* ── Mobile viewport fix ── */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-  
-  /* Prevent zoom on input focus on iOS */
-  input, select, textarea {
-    font-size: 16px !important;
-  }
-  
-  /* Prevent horizontal overflow */
-  main {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-  
-  /* Fix container overflow */
-  .container, [class*="max-w"] {
-    max-width: 100% !important;
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
-  }
-  
-  /* Fix grid overflow */
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
 }
 
 /* ── Scrollbar ── */
@@ -110,7 +68,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%; background: #14B8A6; cursor: pointer;
 }
 
-/* ── Mobile sidebar overlay ── */
+/* ── Sidebar overlay ── */
 .sidebar-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.65);
@@ -126,76 +84,151 @@ body.modal-open aside {
   display: none;
 }
 
-/* ── Mobile & Touch Optimizations ── */
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE & RESPONSIVE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Base Mobile Setup (All devices) ── */
 @media (max-width: 1024px) {
-  .flex {
-    flex-wrap: wrap;
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent horizontal overflow */
+  html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden !important;
+  }
+  
+  /* All containers should respect viewport */
+  main, section, article, div[class*="container"], div[class*="max-w"] {
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 }
 
-@media (max-width: 640px) {
-  /* Prevent all horizontal overflow without forcing every child to shrink aggressively */
-  html, body, main {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-    position: relative;
+/* ── Mobile Specific (Phones & Small Tablets) ── */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
   }
   
-  /* Better touch targets */
-  button, a, [role="button"] {
+  /* Prevent zoom on input focus (iOS) */
+  input, select, textarea, button {
+    font-size: 16px !important;
+  }
+  
+  /* Better touch targets - minimum 44x44px */
+  button, a, [role="button"], input[type="submit"], input[type="button"] {
     min-height: 44px;
     min-width: 44px;
+    touch-action: manipulation;
   }
   
   /* Prevent text size adjust */
   html {
     -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
   }
   
-  /* Modal optimization */
-  .modal-content {
-    max-height: 90vh !important;
-    max-height: 90dvh !important; /* Use dynamic viewport */
-    max-width: 95vw !important;
-    margin: auto;
+  /* Main content area */
+  main {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
   
-  /* Card spacing */
-  .card {
-    padding: 0.75rem !important;
-  }
-  
-  /* Table responsive */
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    max-width: 100%;
-  }
-  
-  /* Container constraints */
-  [class*="container"], [class*="max-w"] {
+  /* Container responsive */
+  .container, [class*="max-w"] {
     max-width: 100% !important;
     padding-left: 0.75rem !important;
     padding-right: 0.75rem !important;
   }
   
-  /* Fix grid columns on mobile */
+  /* Grid force single column */
   .grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Card padding reduction */
+  .card, [class*="rounded-2xl"] {
+    padding: 0.75rem !important;
+  }
+  
+  /* Modal optimization */
+  .modal-content, [role="dialog"] {
+    max-height: 90vh !important;
+    max-height: 90dvh !important;
+    max-width: min(92vw, 100%) !important;
+    margin: 1rem;
+  }
+  
+  /* Table horizontal scroll */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  
+  /* Responsive text sizing */
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.25rem !important; }
+  
+  /* Button text readable */
+  button {
+    font-size: 14px !important;
+  }
+  
+  /* Spacing adjustments */
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .gap-6 {
+    gap: 1rem !important;
+  }
+  
+  /* Stat cards stack vertically */
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  /* Chart height responsive */
+  .recharts-wrapper {
+    max-width: 100% !important;
+  }
+}
+
+/* ── Extra Small Devices (< 375px) ── */
+@media (max-width: 374px) {
+  body {
+    font-size: 13px;
+  }
+  
+  h1 { font-size: 1.5rem !important; }
+  h2 { font-size: 1.25rem !important; }
+  
+  /* Reduce padding further */
+  main {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .card, [class*="rounded-2xl"] {
+    padding: 0.5rem !important;
+  }
+  
+  /* Stack stat cards single column */
+  .grid-cols-2 {
     grid-template-columns: 1fr !important;
   }
 }
 
-/* ── Tablet Optimizations ── */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-/* ── Safe Area (iOS notch) ── */
+/* ── Safe Area Support (iOS Notch) ── */
 @supports (padding: max(0px)) {
   body {
     padding-left: max(0px, env(safe-area-inset-left));
@@ -209,30 +242,186 @@ body.modal-open aside {
   .sidebar-overlay {
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
-}
-
-/* ── Better scrolling on mobile ── */
-@media (max-width: 1024px) {
-  * {
-    -webkit-overflow-scrolling: touch;
+  
+  /* Bottom fixed elements */
+  .fixed.bottom-0 {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 }
 
-/* ── Prevent zoom on double tap ── */
-button, a {
-  touch-action: manipulation;
+/* ── Landscape Mobile ── */
+@media (max-width: 926px) and (orientation: landscape) {
+  /* Reduce vertical padding in landscape */
+  main {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  
+  .modal-content {
+    max-height: 80vh !important;
+  }
 }
 
-/* ── Focus visible for accessibility ── */
+/* ── Tablet Optimizations (768px - 1024px) ── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  /* Stat cards 2x2 grid */
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Focus Visible (Accessibility) ── */
 :focus-visible {
   outline: 2px solid #14B8A6;
   outline-offset: 2px;
 }
 
-/* ── Loading spinner responsive ── */
+/* ── Loading Spinner Responsive ── */
 @media (max-width: 640px) {
   .spinner {
     width: 24px;
     height: 24px;
   }
+}
+
+/* ── Swap Page Mobile Optimizations ── */
+@media (max-width: 768px) {
+  /* Swap card full width */
+  .xl\\:col-span-2 {
+    grid-column: span 1 !important;
+  }
+  
+  /* Chart section full width */
+  .xl\\:col-span-3 {
+    grid-column: span 1 !important;
+  }
+  
+  /* Token input responsive */
+  input[type="number"] {
+    font-size: 1.25rem !important;
+    min-width: 0;
+  }
+  
+  /* Route info stack on mobile */
+  .flex.items-center.justify-between {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+/* ── Portfolio Page Mobile ── */
+@media (max-width: 768px) {
+  /* Portfolio value text */
+  .text-4xl {
+    font-size: 2rem !important;
+  }
+  
+  /* Allocation chart smaller */
+  .recharts-wrapper {
+    height: 140px !important;
+  }
+}
+
+/* ── Liquidity Page Mobile ── */
+@media (max-width: 768px) {
+  /* Pool/Position cards stack */
+  .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Tab bar scrollable */
+  .flex.border-b {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Tab buttons min width */
+  .flex.border-b button {
+    white-space: nowrap;
+    min-width: max-content;
+  }
+}
+
+/* ── Launchpad Page Mobile ── */
+@media (max-width: 768px) {
+  /* Step cards stack */
+  .grid.grid-cols-7 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Form inputs full width */
+  .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Horizontal Scroll Fix for Specific Elements ── */
+@media (max-width: 768px) {
+  /* Ensure no child can cause horizontal scroll */
+  * {
+    max-width: 100%;
+  }
+  
+  /* But allow these specific elements to be flexible */
+  input, textarea, select, button {
+    max-width: none;
+  }
+  
+  /* Table cells should not break layout */
+  td, th {
+    max-width: none;
+    word-break: break-word;
+  }
+  
+  /* Images should scale */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* SVG responsive */
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ── Modal Mobile Improvements ── */
+@media (max-width: 768px) {
+  /* Token select stays centered and mobile-friendly */
+  .fixed.left-1\\/2 {
+    max-width: min(92vw, 28rem) !important;
+    max-height: 84vh !important;
+    max-height: 84dvh !important;
+    overflow-y: auto;
+    border-radius: 1rem !important;
+  }
+}
+
+/* ── Badge & Tag Responsive ── */
+@media (max-width: 768px) {
+  .badge, [class*="badge"] {
+    font-size: 10px !important;
+    padding: 0.125rem 0.375rem !important;
+  }
+}
+
+/* ── Wallet Connect Button Mobile ── */
+@media (max-width: 640px) {
+  /* RainbowKit button responsive */
+  button[data-testid="rk-account-button"],
+  button[data-testid="rk-connect-button"] {
+    font-size: 14px !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+}
+
+/* ── Prevent Content Jump ── */
+* {
+  transition: max-width 0s, width 0s;
 }

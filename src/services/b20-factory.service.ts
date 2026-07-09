@@ -168,20 +168,13 @@ export class B20FactoryService {
 
       const initCalls: `0x${string}`[] = [];
 
-      const simulateResult = await this.publicClient.simulateContract({
+      const txHash = await this.walletClient.writeContract({
         address: B20_FACTORY_ADDRESS,
         abi: B20_FACTORY_ABI,
         functionName: 'createB20',
         args: [config.variant, salt, params, initCalls],
         account: userAddress,
-      } as Parameters<PublicClient['simulateContract']>[0]);
-
-      const txHash = await this.walletClient.sendTransaction({
-        to: B20_FACTORY_ADDRESS,
-        data: simulateResult.request.data,
-        value: simulateResult.request.value ?? 0n,
-        account: userAddress,
-      } as Parameters<WalletClient['sendTransaction']>[0]);
+      } as Parameters<WalletClient['writeContract']>[0]);
 
       onProgress?.('waiting-confirmation', { txHash });
 
@@ -195,7 +188,7 @@ export class B20FactoryService {
       }
 
       // Predict the token address deterministically
-      const tokenAddress = await this.predictTokenAddress(userAddress, config.symbol);
+      const tokenAddress = await this.predictTokenAddress(userAddress, salt);
 
       onProgress?.('completed', { tokenAddress, txHash });
 
@@ -220,10 +213,8 @@ export class B20FactoryService {
    */
   async predictTokenAddress(
     creator: Address,
-    symbol: string
+    salt: `0x${string}`
   ): Promise<Address> {
-    const salt = this.generateSalt(creator, symbol);
-    
     // Call factory's getTokenAddress
     const address = await this.publicClient.readContract({
       address: B20_FACTORY_ADDRESS,
