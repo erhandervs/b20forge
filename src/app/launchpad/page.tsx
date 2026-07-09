@@ -349,6 +349,24 @@ export default function LaunchpadPage() {
     setDeployError(null);
 
     try {
+      console.info('Launchpad deploy started', {
+        address,
+        chainId: chain?.id,
+        isBaseMainnet,
+        launchpadEnabled,
+        form: {
+          name: form.name,
+          symbol: form.symbol,
+          totalSupply: form.totalSupply,
+          variant: form.variant,
+          mintable: form.mintable,
+          burnable: form.burnable,
+          pausable: form.pausable,
+          permit: form.permit,
+          policyType: form.policyType,
+        },
+      });
+
       const config: B20TokenConfig = {
         name: form.name,
         symbol: form.symbol,
@@ -377,6 +395,12 @@ export default function LaunchpadPage() {
         config,
         userAddress: address,
         logoFile: form.logo ?? undefined,
+        onProgress: (step, details) => {
+          console.info('deploy progress', step, details);
+          if (step === 'waiting-confirmation' && details && typeof details === 'object' && 'txHash' in details) {
+            setDeployError(`Transaction sent: ${ (details as any).txHash }`);
+          }
+        },
       });
 
       if (!result.success || !result.tokenAddress) {

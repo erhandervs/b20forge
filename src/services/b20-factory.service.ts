@@ -171,6 +171,8 @@ export class B20FactoryService {
       let txHash: `0x${string}` | undefined;
 
       try {
+        console.info('Attempting writeContract createB20', { userAddress, variant: config.variant, salt });
+
         txHash = await this.walletClient.writeContract({
           address: B20_FACTORY_ADDRESS,
           abi: B20_FACTORY_ABI,
@@ -191,6 +193,8 @@ export class B20FactoryService {
             args: [config.variant, salt, params, initCalls],
             account: userAddress,
           } as Parameters<PublicClient['simulateContract']>[0]);
+
+          console.info('simulateContract result', simulateResult);
 
           if (!simulateResult?.request) throw new Error('simulateContract did not return a request');
 
