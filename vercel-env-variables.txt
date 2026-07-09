@@ -1,0 +1,77 @@
+# Vercel Environment Variables - Copy & Paste
+# Add these to: Vercel Dashboard → Project → Settings → Environment Variables
+# Select: Production, Preview, Development (all three)
+
+# ============================================
+# REQUIRED - Core Configuration
+# ============================================
+
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=a5cf6e15ec1f72f54d45548ce9d86214
+NEXT_PUBLIC_BASE_MAINNET_RPC=https://mainnet.base.org
+NEXT_PUBLIC_DEFAULT_CHAIN_ID=8453
+NEXT_PUBLIC_B20_FACTORY_ADDRESS=0xB20f000000000000000000000000000000000000
+NEXT_PUBLIC_B20_ACTIVATION_REGISTRY=0x8453000000000000000000000000000000000001
+NEXT_PUBLIC_B20_POLICY_REGISTRY=0x8453000000000000000000000000000000000002
+
+# ============================================
+# REQUIRED - Feature Flags
+# ============================================
+
+NEXT_PUBLIC_ENABLE_MAINNET=true
+NEXT_PUBLIC_ENABLE_TESTNET=false
+NEXT_PUBLIC_ENABLE_B20_DEPLOYMENT=true
+NEXT_PUBLIC_ENABLE_LIQUIDITY=true
+NEXT_PUBLIC_ENABLE_SWAP=true
+NEXT_PUBLIC_ENABLE_SECURITY_SCAN=false
+NEXT_PUBLIC_DEBUG_MODE=false
+
+# ============================================
+# RECOMMENDED - DEX Configuration
+# ============================================
+
+NEXT_PUBLIC_AERODROME_ROUTER=0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43
+NEXT_PUBLIC_AERODROME_FACTORY=0x420DD381b31aEf6683db6B902084cB0FFECe40Da
+NEXT_PUBLIC_UNISWAP_V3_ROUTER=0x2626664c2603336E57B271c5C0b26F421741e481
+NEXT_PUBLIC_UNISWAP_V3_FACTORY=0x33128a8fC17869897dcE68Ed026d694621f6FDfD
+
+# ============================================
+# OPTIONAL - Additional Configuration
+# ============================================
+
+NEXT_PUBLIC_BASE_SEPOLIA_RPC=https://sepolia.base.org
+NEXT_PUBLIC_IPFS_GATEWAY=https://gateway.pinata.cloud/ipfs/
+NEXT_PUBLIC_DEFAULT_LIQUIDITY_DEX=aerodrome
+NEXT_PUBLIC_DEFAULT_LIQUIDITY_AMOUNT_ETH=0.1
+NEXT_PUBLIC_AUTO_CREATE_LIQUIDITY=true
+NEXT_PUBLIC_AUTO_VERIFY_CONTRACTS=false
+
+# ============================================
+# HOW TO ADD IN VERCEL
+# ============================================
+
+# 1. Go to: https://vercel.com/dashboard
+# 2. Select your project
+# 3. Click "Settings" tab
+# 4. Click "Environment Variables" in left sidebar
+# 5. For each variable above:
+#    - Click "Add New"
+#    - Enter Key (e.g., NEXT_PUBLIC_DEFAULT_CHAIN_ID)
+#    - Enter Value (e.g., 8453)
+#    - Select all environments: Production, Preview, Development
+#    - Click "Save"
+# 6. After adding all variables, go to "Deployments" tab
+# 7. Click "..." on latest deployment
+# 8. Click "Redeploy"
+# 9. UNCHECK "Use existing Build Cache"
+# 10. Click "Redeploy"
+
+# ============================================
+# VERIFICATION
+# ============================================
+
+# After deployment, verify on production:
+# 1. Open browser console (F12)
+# 2. Type: console.log(process.env)
+# 3. Check NEXT_PUBLIC_* variables are correct
+# 4. NEXT_PUBLIC_DEFAULT_CHAIN_ID should be "8453"
+# 5. NEXT_PUBLIC_ENABLE_MAINNET should be "true"
