@@ -168,44 +168,49 @@ export class B20FactoryService {
 
       const initCalls: `0x${string}`[] = [];
 
-      let txHash: `0x${string}` | undefined;
+      onProgress?.('simulating-transaction');
+      const simulateResult = await this.publicClient.simulateContract({
+        address: B20_FACTORY_ADDRESS,
+        abi: B20_FACTORY_ABI,
+        functionName: 'createB20',
+        args: [config.variant, salt, params, initCalls],
+        account: userAddress,
+      } as Parameters<PublicClient['simulateContract']>[0]);
 
+      console.info('simulateContract result', simulateResult);
+      if (!simulateResult?.request) {
+        throw new Error('simulateContract did not return a request');
+      }
+
+      // Estimate gas for the actual transaction
+      let gasLimit: bigint | undefined;
       try {
-        console.info('Attempting writeContract createB20', { userAddress, variant: config.variant, salt });
-
-        txHash = await this.walletClient.writeContract({
+        gasLimit = await this.publicClient.estimateContractGas({
           address: B20_FACTORY_ADDRESS,
           abi: B20_FACTORY_ABI,
           functionName: 'createB20',
           args: [config.variant, salt, params, initCalls],
           account: userAddress,
-        } as Parameters<WalletClient['writeContract']>[0]);
+        } as Parameters<PublicClient['estimateContractGas']>[0]);
+        console.info('Estimated gas for createB20', { gasLimit: String(gasLimit) });
+      } catch (gasErr) {
+        console.warn('Gas estimation failed for createB20, continuing without explicit gas limit', gasErr);
+      }
 
+      const request = {
+        ...simulateResult.request,
+        gas: gasLimit,
+      } as Parameters<WalletClient['writeContract']>[0];
+
+      let txHash: `0x${string}` | undefined;
+      try {
+        console.info('Sending createB20 transaction via writeContract', { request });
+        txHash = await this.walletClient.writeContract(request);
         onProgress?.('waiting-confirmation', { txHash });
       } catch (err) {
-        console.warn('writeContract failed, attempting fallback via simulate + sendTransaction', err);
-
+        console.warn('writeContract failed, attempting fallback via sendTransaction', err);
         try {
-          const simulateResult = await this.publicClient.simulateContract({
-            address: B20_FACTORY_ADDRESS,
-            abi: B20_FACTORY_ABI,
-            functionName: 'createB20',
-            args: [config.variant, salt, params, initCalls],
-            account: userAddress,
-          } as Parameters<PublicClient['simulateContract']>[0]);
-
-          console.info('simulateContract result', simulateResult);
-
-          if (!simulateResult?.request) throw new Error('simulateContract did not return a request');
-
-          // prefer sendTransaction when writeContract is not available/failed
-          txHash = await this.walletClient.sendTransaction({
-            to: simulateResult.request.to ?? B20_FACTORY_ADDRESS,
-            data: simulateResult.request.data,
-            value: (simulateResult.request as any).value ?? 0n,
-            account: (simulateResult.request as any).account ?? userAddress,
-          } as Parameters<WalletClient['sendTransaction']>[0]);
-
+          txHash = await this.walletClient.sendTransaction(request as Parameters<WalletClient['sendTransaction']>[0]);
           onProgress?.('waiting-confirmation', { txHash });
         } catch (innerErr) {
           console.error('Fallback sendTransaction failed:', innerErr);
@@ -213,10 +218,30 @@ export class B20FactoryService {
         }
       }
 
-      // Wait for receipt
-      const receipt = await this.publicClient.waitForTransactionReceipt({
-        hash: txHash,
-      });
+      if (!txHash) {
+        throw new Error('Failed to obtain transaction hash from wallet');
+      }
+
+      // Wait for receipt with improved timeout and polling diagnostics
+      let receipt;
+      try {
+        receipt = await this.publicClient.waitForTransactionReceipt({
+          hash: txHash,
+          confirmations: 1,
+          timeout: 300_000,
+        });
+      } catch (receiptErr) {
+        console.warn('waitForTransactionReceipt timed out, checking receipt manually', receiptErr);
+        receipt = await this.publicClient.getTransactionReceipt({ hash: txHash });
+        if (!receipt) {
+          throw new Error(`Transaction ${txHash} submitted but receipt not found after timeout`);
+        }
+      }
+
+      console.info('Transaction receipt', receipt);
+      if (receipt.status !== 'success') {
+        throw new Error(`Transaction failed with status ${receipt.status}`);
+      }
 
       if (receipt.status !== 'success') {
         throw new Error('Transaction failed');
